@@ -1,0 +1,24 @@
+﻿@model IEnumerable<VerkoopViewModel>
+<div class="row">
+    @foreach(var artikel in Model)
+    {
+        @if (artikel.Hoeveelheid < 5)
+        {
+            <div class="col-3 m-2 bg-danger border border-2 border-dark text-center">
+                <a class="link-light" asp-route-id=@artikel.ArtikelId>@artikel.Naam</a>
+            </div>
+        }
+        else if (artikel.Hoeveelheid < 10)
+        {
+            <div class="col-3 m-2 bg-warning border border-2 border-dark text-center">
+                <a class="link-light" asp-route-id=@artikel.ArtikelId)>@artikel.Naam</a>
+            </div>
+        }
+        else
+        {
+            <div class="col-3 m-2 bg-success border border-2 border-dark text-center">
+                <a class="link-light" asp-route-id=@artikel.ArtikelId)>@artikel.Naam</a>
+            </div>
+        }
+    }
+ </div>
