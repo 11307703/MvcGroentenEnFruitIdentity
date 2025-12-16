@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using MvcGroentenEnFruit.Models;
 using MvcGroentenEnFruit.ViewModels;
+using System.Threading.Tasks;
 
 namespace MvcGroentenEnFruit.Data
 {
@@ -13,6 +15,7 @@ namespace MvcGroentenEnFruit.Data
                 using (var scope = app.Services.CreateScope())
                 {                
                     var context = scope.ServiceProvider.GetRequiredService<GFDbContext>();
+                    var _roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
                     if(context.Database.CanConnect())
                     {
                         string _artSla = "Ijsberg sla";
@@ -77,7 +80,9 @@ namespace MvcGroentenEnFruit.Data
                                 context.VerkoopOrders.Add(vk3);
                             }
                             context.SaveChanges();
-                        }                        
+                        }
+                        AddIdentityRole(scope);
+
                     }
                     else
                     { 
@@ -89,6 +94,35 @@ namespace MvcGroentenEnFruit.Data
             {
                 throw new Exception(ex.Message);
             }
-        }        
+        }   
+        
+        private static async Task AddIdentityRole(IServiceScope scope)
+        {
+            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+            var identityRole = new IdentityRole(RolesData.RoleAdmin);
+            var result = await roleManager.CreateAsync(identityRole);
+            if (result.Succeeded)
+            {
+                AddIdentityUser(userManager);
+            }
+        }
+
+        private static async Task AddIdentityUser(UserManager<IdentityUser> userManager)
+        {
+            var userName = RolesData.RoleAdmin;
+            var email = "admin@pxl.be";
+            var password = "Admin9999!";
+            var user = new IdentityUser(userName);
+            user.Email = email;
+            var result = await userManager.CreateAsync(user,password);
+
+            if (result.Succeeded)
+            {
+                result = await userManager.AddToRoleAsync(user,RolesData.RoleAdmin);
+            }
+        }
+
     }
 }

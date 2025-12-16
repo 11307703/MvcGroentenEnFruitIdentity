@@ -5,7 +5,8 @@ namespace MvcGroentenEnFruit.Data
     public class RolesData
     {
         public static string RoleAankoper = "Aankoper";
-        public static string RoleVerkoper = "Verkoper";
+        public const string RoleVerkoper = "Verkoper";
+        public static string RoleAdmin = "Administrator";
         public static SelectList Roles() => new SelectList(GetRoles(), "Id", "RoleName");
         private static IEnumerable<RoleItem> GetRoles()
         {

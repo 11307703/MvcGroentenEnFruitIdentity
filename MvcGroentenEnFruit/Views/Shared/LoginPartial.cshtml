@@ -1,8 +1,5 @@
-﻿@using Microsoft.AspNetCore.Identity
-@inject UserManager<IdentityUser> _userManager;
+﻿@inject UserManager<IdentityUser> _userManager;
 @inject SignInManager<IdentityUser> _signInManager;
-
-
 
 @if (!_signInManager.IsSignedIn(User))
 {
@@ -13,3 +10,4 @@ else
 {
 	<a class="btn btn-block link-light border-white" asp-controller="Account" asp-action="Logout">Identity - Logout</a>
 }
+<a class="btn btn-block link-light border-white" asp-controller="Account" asp-action="AdminOverview">Identity - Admin</a>

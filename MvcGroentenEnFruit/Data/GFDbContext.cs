@@ -16,6 +16,8 @@ namespace MvcGroentenEnFruit.Data
         public DbSet<VerkoopOrder> VerkoopOrders { get; set; }
         public DbSet<MvcGroentenEnFruit.ViewModels.Identity.RegisterViewModel> RegisterViewModel { get; set; } = default!;
         public DbSet<MvcGroentenEnFruit.ViewModels.Identity.LoginViewModel> LoginViewModel { get; set; } = default!;
+        public DbSet<MvcGroentenEnFruit.ViewModels.Identity.RoleViewModel> RoleViewModel { get; set; } = default!;
+        public DbSet<MvcGroentenEnFruit.ViewModels.Identity.UserRoleViewModel> UserRoleViewModel { get; set; } = default!;
     }
 }
 
