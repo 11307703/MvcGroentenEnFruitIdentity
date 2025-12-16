@@ -19,6 +19,14 @@ namespace MvcGroentenEnFruit.Controllers
             _signinManager = signInManager;
         }
 
+        #region AdminOverview
+        public IActionResult AdminOverview()
+        {
+            return View();
+        }
+        #endregion
+
+        #region Register
         [HttpGet]
         public IActionResult Register()
         {
@@ -64,13 +72,17 @@ namespace MvcGroentenEnFruit.Controllers
             }
             return View();
         }
+        #endregion
 
+        #region Logout
         public IActionResult Logout()
         {
             _signinManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+        #endregion
 
+        #region Login
         [HttpGet]
         public IActionResult Login()
         {
@@ -95,6 +107,7 @@ namespace MvcGroentenEnFruit.Controllers
             }
             return View();
         }
+        #endregion
 
         private async Task<bool> ValidateIdentityUserAsync(IdentityUser user)
         {
